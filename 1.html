@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080, user-scalable=no"/>
+  <title>聚焦前沿科技H5页面</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      background-color: #2B2B2B;
+      font-family: "Segoe UI", Roboto, sans-serif;
+      color: #fff;
+      width: 100%;
+      height: 100%;
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;     /* Firefox */
+    }
+    body::-webkit-scrollbar {
+      display: none; /* Chrome / Safari / Edge */
+    }
+    .container {
+      width: 1080px;
+      height: 2400px;
+      margin: 0 auto;
+      background-color: #2B2B2B;
+      display: flex;
+      flex-direction: column;
+    }
+    .header {
+      background: url("bg.jpg") no-repeat center;
+      background-size: cover;
+      height: 650px;
+      padding: 200px 100px 30px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+    .header h1 {
+      font-size: 60px;
+      font-weight: 500;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .header h1 span {
+      font-size: 80px;
+      font-weight: bold;
+    }
+    .header .line {
+      height: 1px;
+      width: 80%;
+      background-color: white;
+      margin: 12px 0;
+    }
+    .header .subtitle {
+      font-size: 40px;
+      color: #000;
+    }
+    .about-btn {
+      position: absolute;
+      right: 50px;
+      top: 50px;
+      background-color: white;
+      color: #000;
+      border-radius: 4px;
+      font-size: 20px;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+    }
+    nav {
+      display: flex;
+      justify-content: space-around;
+      background: #2B2B2B;
+      border-top: 1px solid #333;
+      border-bottom: 2px solid #FFA126;
+    }
+    nav button {
+      background: none;
+      border: none;
+      color: #ccc;
+      font-size: 30px;
+      padding: 14px 0;
+      flex: 1;
+      cursor: pointer;
+      position: relative;
+    }
+    nav button.active {
+      color: #FFA126;
+      font-weight: bold;
+    }
+    nav button.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 3px;
+      background: #FFA126;
+      border-radius: 2px;
+    }
+    .section {
+      display: none;
+      padding: 48px 32px 40px;
+      flex-grow: 1;
+    }
+    .section.active {
+      display: block;
+    }
+    .section#rights {
+      overflow-y: auto;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .section#rights::-webkit-scrollbar {
+      display: none;
+    }
+    .title {
+      font-size: 40px;
+      padding: 50px 100px 20px;
+      color: #FFA126;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+    .text p, .text {
+      font-size: 30px;
+      color: #ddd;
+      line-height: 1.8;
+      margin-top: 2em;
+      text-indent: 2em;
+      padding: 0px 50px 50px;
+    }
+    .footer {
+      font-size: 20px;
+      color: #FFA126;
+      text-align: center;
+      padding-top: 40px;
+    }
+    .box-group {
+      background: white;
+      border-radius: 16px;
+      padding: 24px 32px;
+      margin-bottom: 40px;
+      max-width: 880px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+    .item:last-child {
+      margin-bottom: 0;
+    }
+    .item img.icon {
+      width: 60px;
+      height: 60px;
+      margin-right: 20px;
+      flex-shrink: 0;
+    }
+    .item-content {
+      flex-grow: 1;
+    }
+    .item-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .item-title .tag {
+      color: #FFA126;
+      font-weight: bold;
+      font-size: 34px;
+    }
+    .item-title .badge {
+      background-color: #2B2B2B;
+      color: #FFA126;
+      font-size: 20px;
+      padding: 2px 12px;
+      border-radius: 14px;
+      margin-left: 12px;
+    }
+    .item .desc {
+      font-size: 28px;
+      color: #2B2B2B;
+    }
+    #aboutModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    #aboutModal .modal-content {
+      background: #fff;
+      color: #000;
+      padding: 20px;
+      border-radius: 8px;
+      width: 80%;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <button class="about-btn" onclick="document.getElementById('aboutModal').style.display='flex'">关于我们</button>
+    <h1>聚焦前沿科技<br><span>"深"</span>耕产业经济</h1>
+    <div class="line"></div>
+    <div class="subtitle">首届高端学术讨研班</div>
+  </div>
+
+  <nav>
+    <button class="tab-button active" data-target="intro">课程简介</button>
+    <button class="tab-button" data-target="rights">权益说明</button>
+    <button class="tab-button" data-target="experts">专家介绍</button>
+    <button class="tab-button" data-target="schedule">课程安排</button>
+  </nav>
+
+  <div id="intro" class="section active">
+    <div class="title">课程简介</div>
+    <div class="text">
+      <p>本次课程特邀国家级智库专家权威授课，深度解读宏观经济政策，系统剖析前沿科技，驱动企业成长。内容涵盖技术创新突破，通过前沿技术课题分享及研讨，助力企业突破发展瓶颈，实现“专精特新”转型升级，竞逐高端资质荣誉。</p>
+    </div>
+    <div class="footer">深圳企蜂网络平台有限公司</div>
+  </div>
+
+<div id="rights" class="section">
+  <div class="title">专属权益</div>
+
+  <!-- 学术权益 -->
+  <div class="box-group" style="max-width: 880px; margin: 0 auto 40px;">
+    <div style="font-size: 32px; color: #000; font-weight: bold; margin-bottom: 20px;">学术权益</div>
+
+    <div class="item">
+      <img src="gift1_clean.png" class="icon"/>
+      <div class="item-content">
+        <div class="item-title">
+          <span class="tag">学术通行证</span>
+          <span class="badge">首期专享</span>
+        </div>
+        <div class="desc">免费加入“中国技术经济学会”会员</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <img src="gift1_clean.png" class="icon"/>
+      <div class="item-content">
+        <div class="item-title">
+          <span class="tag">黄金人脉</span>
+          <span class="badge">免费1次</span>
+        </div>
+        <div class="desc">链接21个特色赛道资源</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <img src="gift1_clean.png" class="icon"/>
+      <div class="item-content">
+        <div class="item-title">
+          <span class="tag">全年智库</span>
+          <span class="badge">价值800元</span>
+        </div>
+        <div class="desc">1年800万高端精选上新课免费</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 企业权益 -->
+  <div class="box-group" style="max-width: 880px; margin: 0 auto 40px;">
+    <div style="font-size: 32px; color: #000; font-weight: bold; margin-bottom: 20px;">企业权益</div>
+
+    <div class="item">
+      <img src="gift2_clean.png" class="icon"/>
+      <div class="item-content">
+        <div class="item-title">
+          <span class="tag">深度诊断</span>
+          <span class="badge">价值战略咨询</span>
+        </div>
+        <div class="desc">免费出具企业体检报告</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <img src="gift2_clean.png" class="icon"/>
+      <div class="item-content">
+        <div class="item-title">
+          <span class="tag">国策智囊</span>
+          <span class="badge">专家坐镇</span>
+        </div>
+        <div class="desc">国家级重大项目课题对接或技术路线分析1次</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <img src="gift2_clean.png" class="icon"/>
+      <div class="item-content">
+        <div class="item-title">
+          <span class="tag">湾区金标</span>
+          <span class="badge">政府认证</span>
+        </div>
+        <div class="desc">广东省知名品牌评估1次</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <img src="gift2_clean.png" class="icon"/>
+      <div class="item-content">
+        <div class="item-title">
+          <span class="tag">全链赋能</span>
+          <span class="badge">限量开放</span>
+        </div>
+        <div class="desc">
+          企业产品推荐进入广东知名品牌推荐及营销体系<br>
+          <span style="color:#968F8F;">
+            | 企业产品成果转化入库推荐证明1次<br>
+            | 企业项目联动路演1次<br>
+            | 企业评估辅导1次<br>
+            | 政策专项陪跑闭门议会1次
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 附赠 -->
+  <div class="text" style="color:#FFA126; font-weight:bold; margin-top:40px; padding-left:100px; text-indent: 0;">附赠</div>
+  <div class="text" style="color:white; margin-top: 10px; padding-left:100px; text-indent: 0;">
+    ①精装纸质教材（双份）<br>
+    ②专属学习场景照片及影像记录<br>
+    ③精品茶歇及午餐（2天）
+  </div>
+
+  <div class="footer">深圳企蜂网络平台有限公司</div>
+</div>
+
+<div id="experts" class="section" style="background: url('bg3.png') no-repeat center top; background-size: cover; padding: 60px 60px 80px;">
+  <div class="section-title" style="font-size: 36px; color: #FFA126; font-weight: bold; margin-bottom: 40px;">中国技术经济学会专家学者</div>
+
+  <div class="expert-card" style="background: #fff; border-radius: 20px; padding: 40px 50px; margin-bottom: 40px;">
+    <div style="font-size: 42px; font-weight: bold; color: #000; margin-bottom: 20px;">李平<span style="font-size: 28px; font-weight: normal;"> / 教授</span></div>
+    <div style="font-size: 26px; color: #2b2b2b; line-height: 2;">
+      · 中国技术经济学会副秘书长、标准管理部部长<br>
+      · 国家发改委“十四五战略性新兴产业发展”课题组成员<br>
+      · 工信部“工业母机产业高质量发展”项目评审专家<br>
+      · 国家高端智库《中国宏观经济》研究员<br>
+      · 国家产业基础高级人才库成员、核心专家<br>
+      · 中央企业科技创新成果评审项目组成员<br>
+      · 国家统计局数字经济统计体系专家委员会委员<br>
+      · 国家重点实验室科技成果评价专家组成员<br>
+      · 国家工程实验室科技创新智库专家<br>
+      · 国家级产业转移示范区发展评估课题首席专家
+    </div>
+    <div style="display: flex; align-items: center; margin: 40px 0;">
+      <div style="flex: 1; height: 1px; border-top: 2px dashed #2b2b2b;"></div>
+      <div style="margin: 0 20px; font-size: 30px; color: #2b2b2b; font-weight: bold;">专家简介</div>
+      <div style="flex: 1; height: 1px; border-top: 2px dashed #2b2b2b;"></div>
+    </div>
+    <div style="font-size: 26px; color: #2b2b2b; line-height: 2;">
+      &emsp;&emsp;多年来持续关注产业发展、区域协调、工业技术导向等领域，在产业规划与科技政策方面具有深厚研究基础。主持国家发改委相关课题30余项，曾在《中国信息报》《宏观研究》发表研究报告与论文近百篇。牵头撰写"新一代人工智能发展战略研究"、"2030战略性新兴产业发展蓝图"等研究蓝皮书。<br>
+      &emsp;&emsp;主导"数字经济核心产业统计标准体系"、"战略性新兴产业识别标准"等指标体系制定工作。主讲研究领域为科技创新与区域升级，科技创新政策、科技人才、柔性科研组织模式。长期聚焦国家重点项目政策评估体系建设，熟悉企业科创成果申报机制与各类认定流程。主持多项企业战略与品牌评估研究课题，具备丰富的项目指导与实战经验。曾提出"双轮驱动、双元创新"理论，参与"十四五"科技企业科学评估人工智能、大数据、新材料方向研究。
+    </div>
+  </div>
+
+  <div class="expert-card" style="background: #fff; border-radius: 20px; padding: 40px 50px;">
+    <div style="font-size: 42px; font-weight: bold; color: #000; margin-bottom: 20px;">王宏伟<span style="font-size: 28px; font-weight: normal;"> / 教授</span></div>
+    <div style="font-size: 26px; color: #2b2b2b; line-height: 2;">
+      · 中国技术经济学会创新发展研究院副院长<br>
+      · 中国科学技术协会企业创新服务中心原副主任<br>
+      · 中国管理科学研究院产业经济研究所主任<br>
+      · 二级研究员、硕士生导师
+    </div>
+    <div style="display: flex; align-items: center; margin: 40px 0;">
+      <div style="flex: 1; height: 1px; border-top: 2px dashed #2b2b2b;"></div>
+      <div style="margin: 0 20px; font-size: 30px; color: #2b2b2b; font-weight: bold;">专家简介</div>
+      <div style="flex: 1; height: 1px; border-top: 2px dashed #2b2b2b;"></div>
+    </div>
+    <div style="font-size: 26px; color: #2b2b2b; line-height: 2;">
+      &emsp;&emsp;主持研究领域为科技创新与区域升级、科技创新政策、科技人才、柔性科研组织模式。长期聚焦国家重点项目政策评估体系建设，熟悉企业科创成果申报机制与各类认定流程，主持多项企业战略与品牌评估研究课题。具备丰富的项目指导与实战经验，曾提出“双轮驱动、双元创新”理论，参与“十四五”科技企业科学评估人工智能、大数据、新材料方向研究。
+    </div>
+  </div>
+
+  <div class="footer" style="margin-top: 40px; color: #FFA126; text-align: center;">深圳市企蜂科技有限公司</div>
+</div>
+
+<div id="schedule" class="section">
+  <div class="title">课程时间安排</div>
+  <div style="background:white; border-radius: 20px; padding: 60px 80px; max-width: 880px; margin: 0 auto; color:#2B2B2B;">
+    <div style="font-size: 50px; font-weight: bold; margin-bottom: 50px;">● 5月24日</div>
+
+    <div style="font-size: 30px; display: flex; justify-content: space-between; margin-bottom: 40px;">
+      <div style="color: #FFA126; font-weight: bold;">9:30-12:00</div>
+      <div style="flex: 1; text-align: center;">宏观经济预测及分析</div>
+    </div>
+
+    <div style="font-size: 30px; display: flex; justify-content: space-between; margin-bottom: 40px;">
+      <div style="color: #FFA126; font-weight: bold;">12:00-13:30</div>
+      <div style="flex: 1; text-align: center;">午饭茶歇</div>
+    </div>
+
+    <div style="font-size: 30px; display: flex; justify-content: space-between; margin-bottom: 40px;">
+      <div style="color: #FFA126; font-weight: bold;">13:30-16:00</div>
+      <div style="flex: 1; text-align: center;">前沿技术课题研讨</div>
+    </div>
+
+    <div style="height: 1px; border-top: 1px dashed #aaa; margin: 30px 0;"></div>
+
+    <div style="font-size: 50px; font-weight: bold; margin-bottom: 50px;">● 5月25日</div>
+
+    <div style="font-size: 30px; display: flex; justify-content: space-between; margin-bottom: 40px;">
+      <div style="color: #FFA126; font-weight: bold;">9:30-12:00</div>
+      <div style="flex: 1; text-align: center;">科技创新产业引导</div>
+    </div>
+
+    <div style="font-size: 30px; display: flex; justify-content: space-between; margin-bottom: 40px;">
+      <div style="color: #FFA126; font-weight: bold;">12:00-13:00</div>
+      <div style="flex: 1; text-align: center;">30年饭茶歇</div>
+    </div>
+
+    <div style="font-size: 30px; display: flex; justify-content: space-between;">
+      <div style="color: #FFA126; font-weight: bold;">13:30-16:00</div>
+      <div style="flex: 1; text-align: center;">科技成果转化-重大专题研讨</div>
+    </div>
+  </div>
+
+  <div class="footer">深圳市企蜂科技有限公司</div>
+</div>
+
+<!-- 弹窗结构 -->
+<div id="aboutModal">
+  <div class="modal-content">
+    <p>关于我们内容占位（后续可替换）</p>
+    <button onclick="document.getElementById('aboutModal').style.display='none'">关闭</button>
+  </div>
+</div>
+
+<script>
+  const buttons = document.querySelectorAll('.tab-button');
+  const sections = document.querySelectorAll('.section');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      sections.forEach(s => s.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.target).classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

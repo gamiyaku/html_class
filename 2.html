@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080, user-scalable=no"/>
+  <title>聚焦前沿科技H5页面</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      background-color: #2B2B2B;
+      font-family: "Segoe UI", Roboto, sans-serif;
+      color: #fff;
+      width: 100%;
+      height: 100%;
+    }
+    .container {
+      width: 1080px;
+      height: 2400px;
+      margin: 0 auto;
+      background-color: #2B2B2B;
+      display: flex;
+      flex-direction: column;
+    }
+    .header {
+      background: url("bg.jpg") no-repeat center;
+      background-size: cover;
+      height: 650px;
+      padding: 200px 100px 30px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+    .header h1 {
+      font-size: 60px;
+      font-weight: 500;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .header h1 span {
+      font-size: 80px;
+      font-weight: bold;
+    }
+    .header .line {
+      height: 1px;
+      width: 80%;
+      background-color: white;
+      margin: 12px 0;
+    }
+    .header .subtitle {
+      font-size: 40px;
+      color: #000;
+    }
+    .about-btn {
+      position: absolute;
+      right: 50px;
+      top: 50px;
+      background-color: white;
+      color: #000;
+      border-radius: 4px;
+      font-size: 20px;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+    }
+    nav {
+      display: flex;
+      justify-content: space-around;
+      background: #2B2B2B;
+      border-top: 1px solid #333;
+      border-bottom: 2px solid #FFA126;
+    }
+    nav button {
+      background: none;
+      border: none;
+      color: #ccc;
+      font-size: 30px;
+      padding: 14px 0;
+      flex: 1;
+      cursor: pointer;
+      position: relative;
+    }
+    nav button.active {
+      color: #FFA126;
+      font-weight: bold;
+    }
+    nav button.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 3px;
+      background: #FFA126;
+      border-radius: 2px;
+    }
+    .section {
+      display: none;
+      padding: 48px 32px 40px;
+      flex-grow: 1;
+      overflow-y: auto;
+    }
+    .section.active {
+      display: block;
+    }
+    .title {
+      font-size: 40px;
+      padding: 50px 100px 20px;
+      color: #FFA126;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+    .text p, .text {
+      font-size: 30px;
+      color: #ddd;
+      line-height: 1.8;
+      margin-top: 2em;
+      text-indent: 2em;
+      padding: 0px 50px 50px;
+    }
+    .box {
+      background: white;
+      color: black;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+    }
+    .footer {
+      font-size: 18px;
+      color: #FFA126;
+      text-align: center;
+      padding-top: 40px;
+    }
+    .icon-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .icon-title img {
+      width: 28px;
+      height: 28px;
+      margin-right: 10px;
+    }
+    #aboutModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    #aboutModal .modal-content {
+      background: #fff;
+      color: #000;
+      padding: 20px;
+      border-radius: 8px;
+      width: 80%;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <button class="about-btn" onclick="document.getElementById('aboutModal').style.display='flex'">关于我们</button>
+    <h1>聚焦前沿科技<br><span>"深"</span>耕产业经济</h1>
+    <div class="line"></div>
+    <div class="subtitle">首届高端学术讨研班</div>
+  </div>
+
+  <nav>
+    <button class="tab-button active" data-target="intro">课程简介</button>
+    <button class="tab-button" data-target="rights">权益说明</button>
+    <button class="tab-button" data-target="experts">专家介绍</button>
+    <button class="tab-button" data-target="schedule">课程安排</button>
+  </nav>
+
+  <div id="intro" class="section active">
+    <div class="title">课程简介</div>
+    <div class="text">
+      <p>本次课程特邀国家级智库专家权威授课，深度解读宏观经济政策，系统剖析前沿科技，驱动企业成长。内容涵盖技术创新突破，通过前沿技术课题分享及研讨，助力企业突破发展瓶颈，实现“专精特新”转型升级，竞逐高端资质荣誉。</p>
+    </div>
+    <div class="footer">深圳企蜂网络平台有限公司</div>
+  </div>
+
+ <div id="rights" class="section">
+  <div class="title">专属权益</div>
+
+  <!-- 学术权益 -->
+  <div class="box">
+    <div class="item">
+      <img src="gift1.jpg" class="icon"/>
+      <span class="tag">学术通行证</span>
+      <span class="badge">首期专享</span>
+      <div class="desc">免费加入“中国技术经济学会”会员</div>
+    </div>
+    <div class="item">
+      <img src="gift1.jpg" class="icon"/>
+      <span class="tag">黄金人脉</span>
+      <span class="badge">智库联动</span>
+      <div class="desc">链接21个特色赛道资源</div>
+    </div>
+    <div class="item">
+      <img src="gift1.jpg" class="icon"/>
+      <span class="tag">全年智库</span>
+      <span class="badge">线上权益</span>
+      <div class="desc">1年800万高端精选上新课免费听</div>
+    </div>
+  </div>
+
+  <!-- 企业权益 -->
+  <div class="box">
+    <div class="item">
+      <img src="gift1.jpg" class="icon"/>
+      <span class="tag">深度赋能</span>
+      <span class="badge">企业特享</span>
+      <div class="desc">免费加入企业特训营圈</div>
+    </div>
+    <div class="item">
+      <img src="gift1.jpg" class="icon"/>
+      <span class="tag">精准对接</span>
+      <span class="badge">智库陪跑</span>
+      <div class="desc">国家科研项目申报逻辑推演未来5年议题</div>
+    </div>
+    <div class="item">
+      <img src="gift1.jpg" class="icon"/>
+      <span class="tag">高效落地</span>
+      <span class="badge">赛道应用</span>
+      <div class="desc">广东特色项目闭门行动计划</div>
+    </div>
+    <div class="item">
+      <img src="gift1.jpg" class="icon"/>
+      <span class="tag">全链路支持</span>
+      <span class="badge">专项联动</span>
+      <div class="desc">
+        企业产品推理进入广东成果转化推荐库及联动评审体系：<br>
+        · 企业产品成果转化入库推荐证明1次<br>
+        · 企业项目联动路演1次<br>
+        · 企业评估辅导1次<br>
+        · 政策专项陪跑闭门议会1次
+      </div>
+    </div>
+  </div>
+
+  <!-- 附赠 -->
+  <div class="text" style="color:#FFA126; font-weight:bold;">
+    附赠
+  </div>
+  <div class="text" style="color:white; margin-top: 10px;">
+    ● 课程视频回放（3段）<br>
+    ● 手写学习拆解图及共创记录<br>
+    ● 3期线上实训专享（2次）
+  </div>
+
+  <div class="footer">深圳企蜂网络科技有限公司</div>
+</div>
+
+  <div id="experts" class="section">
+    <div class="title">专家介绍</div>
+    <div class="box">
+      <strong>李平 / 教授</strong>
+      <div class="text">
+        <p>中国技术经济学会数字经济专家。长期深耕政策研究及指标构建体系，具有丰富课题经验。</p>
+      </div>
+    </div>
+    <div class="box">
+      <strong>王宏伟 / 教授</strong>
+      <div class="text">
+        <p>国家高新技术企业评审专家。熟悉科技类政策申报及认定流程，擅长辅导企业政策合规路径建设。</p>
+      </div>
+    </div>
+    <div class="footer">深圳企蜂网络平台有限公司</div>
+  </div>
+
+  <div id="schedule" class="section">
+    <div class="title">课程安排</div>
+    <div class="text">
+      <p><strong>5月28日</strong><br>9:30-12:00 政策框架及趋势分析<br>12:00-13:30 午餐交流<br>13:30-16:00 案例实操与讲评</p>
+      <p><strong>5月29日</strong><br>9:30-12:00 科技创新平台诊断<br>12:00-13:00 沙龙交流<br>13:30-16:00 结题模拟答辩</p>
+    </div>
+    <div class="footer">深圳企蜂网络平台有限公司</div>
+  </div>
+</div>
+
+<!-- 弹窗结构 -->
+<div id="aboutModal">
+  <div class="modal-content">
+    <p>关于我们内容占位（后续可替换）</p>
+    <button onclick="document.getElementById('aboutModal').style.display='none'">关闭</button>
+  </div>
+</div>
+
+<script>
+  const buttons = document.querySelectorAll('.tab-button');
+  const sections = document.querySelectorAll('.section');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      sections.forEach(s => s.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.target).classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
